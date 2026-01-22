@@ -7,13 +7,47 @@ interface CryptoCurrency {
   icon: string;
   enabled: boolean;
   address: string;
+  network: string;
+  color: string;
 }
 
 const cryptoCurrencies: CryptoCurrency[] = [
-  { symbol: '₿', name: 'Bitcoin', icon: '₿', enabled: true, address: 'bc1q8hkwgn3zft9m2734c5zn966drnluc3tuaw648g' },
-  { symbol: '◎', name: 'Solana', icon: '◎', enabled: true, address: 'D4sgXyU6S2heMzKatUazeZ8iUseDkGx4vypz1kKRTXSX' },
-  { symbol: 'USDC', name: 'USDC (Base)', icon: 'USDC', enabled: true, address: '0x1c1805Aa9f3c4252Be61a8b666C21d2607D61DdA' },
-  { symbol: 'USDT', name: 'USDT (Ethereum)', icon: '₮', enabled: true, address: '0x9B025a18Ee207BD4c5c765c117B65FC59ED00DA4' },
+  {
+    symbol: '₿',
+    name: 'Bitcoin',
+    icon: '₿',
+    enabled: true,
+    address: 'bc1q8hkwgn3zft9m2734c5zn966drnluc3tuaw648g',
+    network: 'Bitcoin Network',
+    color: 'text-orange-400'
+  },
+  {
+    symbol: '◎',
+    name: 'Solana',
+    icon: '◎',
+    enabled: true,
+    address: 'D4sgXyU6S2heMzKatUazeZ8iUseDkGx4vypz1kKRTXSX',
+    network: 'Solana Network',
+    color: 'text-purple-400'
+  },
+  {
+    symbol: 'USDC',
+    name: 'USDC',
+    icon: '⛽',
+    enabled: true,
+    address: '0x1c1805Aa9f3c4252Be61a8b666C21d2607D61DdA',
+    network: 'Base Network',
+    color: 'text-blue-400'
+  },
+  {
+    symbol: 'USDT',
+    name: 'USDT',
+    icon: '₮',
+    enabled: true,
+    address: '0x9B025a18Ee207BD4c5c765c117B65FC59ED00DA4',
+    network: 'Ethereum Network',
+    color: 'text-green-400'
+  },
 ];
 
 interface PaymentOptionsProps {
@@ -66,7 +100,7 @@ export function PaymentOptions({ selectedCurrency, onCurrencySelect }: PaymentOp
 
               <div className="flex items-center gap-3">
                 <motion.div
-                  className="text-xl font-bold text-neon-cyan"
+                  className={`text-xl font-bold ${crypto.color}`}
                   animate={selectedCurrency === crypto.symbol ? { scale: 1.1 } : { scale: 1 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -74,22 +108,22 @@ export function PaymentOptions({ selectedCurrency, onCurrencySelect }: PaymentOp
                 </motion.div>
                 <div className="flex-1">
                   <div className="text-sm font-bold text-white uppercase tracking-tight">
-                    {crypto.symbol}
+                    {crypto.symbol} {crypto.name}
                   </div>
-                  <div className="text-[10px] text-neon-green/60 uppercase tracking-wider">
-                    {crypto.name}
+                  <div className="text-[9px] text-neon-green/60 uppercase tracking-wider">
+                    {crypto.network}
                   </div>
                 </div>
                 {crypto.enabled ? (
                   <motion.div
-                    className="text-[8px] text-neon-green/40 px-2 py-1 bg-neon-green/10 rounded"
+                    className="text-[7px] text-neon-green/40 px-1.5 py-0.5 bg-neon-green/10 rounded border border-neon-green/20"
                     animate={selectedCurrency === crypto.symbol ? { backgroundColor: 'rgb(34, 197, 94, 0.2)' } : {}}
                   >
-                    [ACTIVE]
+                    ONLINE
                   </motion.div>
                 ) : (
-                  <div className="text-[8px] text-red-500/40 px-2 py-1 bg-red-500/10 rounded">
-                    [DISABLED]
+                  <div className="text-[7px] text-red-500/40 px-1.5 py-0.5 bg-red-500/10 rounded border border-red-500/20">
+                    OFFLINE
                   </div>
                 )}
               </div>
@@ -106,9 +140,9 @@ export function PaymentOptions({ selectedCurrency, onCurrencySelect }: PaymentOp
           ))}
         </div>
         <div className="mt-4 text-[9px] text-neon-cyan/30 text-center flex items-center justify-center gap-2">
-          <div className="w-1 h-1 bg-neon-cyan/30 rounded-full"></div>
-          SELECT PAYMENT CURRENCY FOR TRANSACTION
-          <div className="w-1 h-1 bg-neon-cyan/30 rounded-full"></div>
+          <div className="w-1 h-1 bg-neon-cyan/30 rounded-full animate-pulse"></div>
+          SECURE MULTI-NETWORK PAYMENT GATEWAY
+          <div className="w-1 h-1 bg-neon-cyan/30 rounded-full animate-pulse"></div>
         </div>
       </div>
     </NeoCard>
