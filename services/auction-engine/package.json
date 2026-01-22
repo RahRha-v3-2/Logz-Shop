@@ -1,0 +1,26 @@
+{
+  "name": "auction-engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+   "scripts": {
+     "test": "jest",
+     "test:watch": "jest --watch"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "jest": {
+     "preset": "default",
+     "testEnvironment": "node"
+   },
+   "dependencies": {
+     "@fastify/cors": "^11.2.0",
+     "@fastify/websocket": "^11.2.0",
+     "fastify": "^5.7.1"
+   },
+   "devDependencies": {
+     "jest": "^29.7.0"
+   }
+}

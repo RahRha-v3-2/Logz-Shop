@@ -1,0 +1,23 @@
+# Stage 1: Build
+FROM docker.io/library/node:20-alpine AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Stage 2: Serve
+FROM docker.io/nginxinc/nginx-unprivileged:alpine
+
+# Copy build artifacts
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Custom Nginx config if needed (optional, using default for now but robust enough for SPA)
+# We might need to handle client-side routing fallback in a real app, 
+# but for this demo default index.html serving is key. 
+# We'll just overwrite the default verify it handles SPA routing if we add complex routes later.
+# For now, simplistic serving.
+
+EXPOSE 8080
+CMD ["nginx", "-g", "daemon off;"]

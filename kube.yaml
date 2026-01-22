@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-market-deployment
+  labels:
+    app: log-market
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-market
+  template:
+    metadata:
+      labels:
+        app: log-market
+    spec:
+      containers:
+      - name: frontend
+        image: localhost/log-market-frontend:latest
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 8080
+            hostPort: 8083
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 30
+      - name: auction-engine
+        image: localhost/log-market-engine:latest
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 3001
+            hostPort: 3003
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3001
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3001
+          initialDelaySeconds: 30
+          periodSeconds: 30
