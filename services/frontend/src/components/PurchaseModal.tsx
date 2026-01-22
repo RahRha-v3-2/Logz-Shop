@@ -12,7 +12,7 @@ interface PurchaseModalProps {
   onClose: () => void;
 }
 
-type PurchaseStep = 'currency' | 'confirm' | 'email' | 'success';
+type PurchaseStep = 'currency' | 'confirm' | 'processing' | 'email' | 'success';
 
 export function PurchaseModal({ item, isOpen, onClose }: PurchaseModalProps) {
   const [step, setStep] = useState<PurchaseStep>('currency');
@@ -26,8 +26,14 @@ export function PurchaseModal({ item, isOpen, onClose }: PurchaseModalProps) {
     setSelectedCurrency(currency);
   };
 
-  const handleConfirmPurchase = () => {
-    setStep('email');
+  const handleInitiatePayment = () => {
+    setStep('processing');
+    setIsProcessing(true);
+    // Simulate payment processing
+    setTimeout(() => {
+      setIsProcessing(false);
+      setStep('email');
+    }, 3000);
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
@@ -149,17 +155,54 @@ export function PurchaseModal({ item, isOpen, onClose }: PurchaseModalProps) {
                         <NeoButton onClick={() => setStep('currency')} variant="ghost" className="flex-1">
                           BACK
                         </NeoButton>
-                         <NeoButton
-                           onClick={handleConfirmPurchase}
-                           className="flex-1"
-                         >
-                           SEND PAYMENT
-                         </NeoButton>
+                          <NeoButton
+                            onClick={handleInitiatePayment}
+                            className="flex-1"
+                          >
+                            INITIATE PAYMENT
+                          </NeoButton>
                       </div>
                     </motion.div>
-                  )}
+                   )}
 
-                  {step === 'email' && (
+                   {step === 'processing' && (
+                     <motion.div
+                       key="processing"
+                       initial={{ opacity: 0, x: 20 }}
+                       animate={{ opacity: 1, x: 0 }}
+                       exit={{ opacity: 0, x: -20 }}
+                     >
+                       <h3 className="text-lg font-bold text-white mb-4">PAYMENT PROCESSING</h3>
+                       <div className="space-y-4 mb-6">
+                         <div className="text-center">
+                           <div className="text-4xl mb-4 animate-spin">⟳</div>
+                           <div className="text-sm text-neon-green/60 mb-2">
+                             Monitoring blockchain for payment confirmation...
+                           </div>
+                           <div className="text-xs text-neon-cyan">
+                             Amount: {priceInSelectedCurrency} {selectedCurrency?.symbol}
+                           </div>
+                           <div className="text-xs text-neon-cyan break-all mt-2">
+                             Address: {selectedCurrency?.address}
+                           </div>
+                         </div>
+                         <div className="border border-neon-green/20 p-4">
+                           <div className="text-[12px] text-neon-green/40 space-y-2">
+                             <div>✓ Payment initiated</div>
+                             <div>⟳ Waiting for blockchain confirmation</div>
+                             <div>○ Preparing download link</div>
+                           </div>
+                         </div>
+                       </div>
+                       <div className="text-center">
+                         <div className="text-sm text-neon-green/60">
+                           This process may take a few moments...
+                         </div>
+                       </div>
+                     </motion.div>
+                   )}
+
+                   {step === 'email' && (
                     <motion.div
                       key="email"
                       initial={{ opacity: 0, x: 20 }}
