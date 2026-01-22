@@ -27,12 +27,10 @@ export function PurchaseModal({ item, isOpen, onClose }: PurchaseModalProps) {
   };
 
   const handleInitiatePayment = () => {
-    console.log('Initiating payment...');
     setStep('processing');
     setIsProcessing(true);
     // Simulate payment processing
     setTimeout(() => {
-      console.log('Payment processing complete, moving to email step');
       setIsProcessing(false);
       setStep('email');
     }, 3000);
@@ -60,8 +58,6 @@ export function PurchaseModal({ item, isOpen, onClose }: PurchaseModalProps) {
                                   selectedCurrency?.symbol === 'USDC' ? item.price.toString() :
                                   selectedCurrency?.symbol === '₮' ? item.price.toString() :
                                   item.price.toString();
-
-  console.log('Current step:', step, 'Selected currency:', selectedCurrency);
 
   return (
     <AnimatePresence>
