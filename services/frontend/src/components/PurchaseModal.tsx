@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { NeoCard } from './NeoCard';
-import { PaymentOptions } from './PaymentOptions';
+import { PaymentOptions, CryptoCurrency } from './PaymentOptions';
 import { NeoButton } from './NeoButton';
 import { LogItem } from '../types';
 
@@ -16,13 +16,13 @@ type PurchaseStep = 'currency' | 'confirm' | 'processing' | 'email' | 'success';
 
 export function PurchaseModal({ item, isOpen, onClose }: PurchaseModalProps) {
   const [step, setStep] = useState<PurchaseStep>('currency');
-  const [selectedCurrency, setSelectedCurrency] = useState<{symbol: string, address: string} | null>(null);
+  const [selectedCurrency, setSelectedCurrency] = useState<CryptoCurrency | null>(null);
   const [email, setEmail] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
 
   if (!item) return null;
 
-  const handleCurrencySelect = (currency: {symbol: string, address: string}) => {
+  const handleCurrencySelect = (currency: CryptoCurrency) => {
     setSelectedCurrency(currency);
   };
 
@@ -180,14 +180,14 @@ export function PurchaseModal({ item, isOpen, onClose }: PurchaseModalProps) {
                         exit={{ opacity: 0, x: -20 }}
                       >
                         <div className="text-center mb-6">
-                          <motion.div
-                            className="inline-flex items-center justify-center w-12 h-12 bg-neon-green/10 border border-neon-green/20 rounded-full mb-3"
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-                          >
-                            <div className="text-neon-green text-xl">₿</div>
-                          </motion.div>
+                           <motion.div
+                             className="inline-flex items-center justify-center w-12 h-12 bg-neon-green/10 border border-neon-green/20 rounded-full mb-3"
+                             initial={{ scale: 0 }}
+                             animate={{ scale: 1 }}
+                             transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+                           >
+                             {selectedCurrency?.icon}
+                           </motion.div>
                           <h3 className="text-lg font-bold text-white mb-2">PAYMENT READY</h3>
                           <div className="text-sm text-neon-green/60">
                             Send payment to complete purchase
@@ -327,7 +327,7 @@ export function PurchaseModal({ item, isOpen, onClose }: PurchaseModalProps) {
                               </div>
                               <div className="flex justify-between">
                                 <span className="text-neon-green/60">Network:</span>
-                                <span className="text-neon-cyan">{selectedCurrency?.symbol === '₿' ? 'Bitcoin' : selectedCurrency?.symbol === '◎' ? 'Solana' : selectedCurrency?.symbol === 'USDC' ? 'Base' : 'Ethereum'}</span>
+                                <span className="text-neon-cyan">{selectedCurrency?.name}</span>
                               </div>
                               <div className="flex justify-between items-start">
                                 <span className="text-neon-green/60">Address:</span>

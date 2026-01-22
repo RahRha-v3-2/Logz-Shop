@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
+import React from 'react';
 import { NeoCard } from './NeoCard';
 
-interface CryptoCurrency {
+export interface CryptoCurrency {
   symbol: string;
   name: string;
-  icon: string;
+  icon: React.ReactNode;
   enabled: boolean;
   address: string;
   network: string;
@@ -15,7 +16,7 @@ const cryptoCurrencies: CryptoCurrency[] = [
   {
     symbol: '₿',
     name: 'Bitcoin',
-    icon: '₿',
+    icon: <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin" className="w-6 h-6" />,
     enabled: true,
     address: 'bc1q8hkwgn3zft9m2734c5zn966drnluc3tuaw648g',
     network: 'Bitcoin Network',
@@ -24,7 +25,7 @@ const cryptoCurrencies: CryptoCurrency[] = [
   {
     symbol: '◎',
     name: 'Solana',
-    icon: '◎',
+    icon: <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="Solana" className="w-6 h-6" />,
     enabled: true,
     address: 'D4sgXyU6S2heMzKatUazeZ8iUseDkGx4vypz1kKRTXSX',
     network: 'Solana Network',
@@ -33,7 +34,7 @@ const cryptoCurrencies: CryptoCurrency[] = [
   {
     symbol: 'USDC',
     name: 'USDC',
-    icon: '⛽',
+    icon: <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" alt="USDC" className="w-6 h-6" />,
     enabled: true,
     address: '0x1c1805Aa9f3c4252Be61a8b666C21d2607D61DdA',
     network: 'Base Network',
@@ -42,7 +43,7 @@ const cryptoCurrencies: CryptoCurrency[] = [
   {
     symbol: 'USDT',
     name: 'USDT',
-    icon: '₮',
+    icon: <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT" className="w-6 h-6" />,
     enabled: true,
     address: '0x9B025a18Ee207BD4c5c765c117B65FC59ED00DA4',
     network: 'Ethereum Network',
