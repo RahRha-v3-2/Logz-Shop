@@ -1,20 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
+import { LogzLogo } from './LogzLogo';
 
 export function Sidebar() {
   return (
     <aside className="w-64 h-screen fixed left-0 top-0 bg-black border-r border-neon-green/10 flex flex-col z-50 font-mono overflow-hidden">
-      <div className="p-6 border-b border-neon-green/10">
-        <pre className="text-[7px] leading-[1.1] text-neon-green animate-pulse-fast mb-4">
-{` _    ____  ____ 
-| |  / __ \\/ ___|
-| | | |  | \\___ \\
-| |__| |__| |___) |
-|_____\\____/|____/ 
-[ MARKET_V2.0 ]`}
-        </pre>
-        <div className="text-[9px] text-neon-green/30 tracking-tighter">SECURE_NODE: KRONOS_01</div>
-      </div>
+       <div className="p-6 border-b border-neon-green/10">
+         <div className="mb-4">
+           <LogzLogo className="text-xl justify-center" />
+         </div>
+         <div className="text-[9px] text-neon-green/30 tracking-tighter">SECURE_NODE: KRONOS_01</div>
+       </div>
 
       <nav className="flex-1 p-4 space-y-4 pt-8">
         <div className="space-y-1">

@@ -343,59 +343,115 @@ export function PurchaseModal({ item, isOpen, onClose }: PurchaseModalProps) {
                             <div className="space-y-3">
                               <motion.div
                                 className="flex items-center gap-3"
-                                initial={{ opacity: 0.5 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.5 }}
+                                initial={{ opacity: 0.5, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                               >
-                                <div className="w-2 h-2 bg-neon-green rounded-full"></div>
+                                <motion.div
+                                  className="w-2 h-2 bg-neon-green rounded-full"
+                                  animate={{ boxShadow: ['0 0 0 0 rgba(34, 197, 94, 0.7)', '0 0 0 4px rgba(34, 197, 94, 0)', '0 0 0 0 0 rgba(34, 197, 94, 0)'] }}
+                                  transition={{ duration: 2, repeat: Infinity }}
+                                />
                                 <span className="text-sm text-neon-green">Payment initiated</span>
                               </motion.div>
 
                               <motion.div
                                 className="flex items-center gap-3"
-                                initial={{ opacity: 0.3 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1 }}
+                                initial={{ opacity: 0.3, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 1, type: "spring", stiffness: 200 }}
                               >
                                 <motion.div
                                   className="w-2 h-2 bg-neon-cyan rounded-full"
-                                  animate={{ scale: [1, 1.2, 1] }}
-                                  transition={{ duration: 1.5, repeat: Infinity }}
-                                ></motion.div>
+                                  animate={{
+                                    scale: [1, 1.3, 1],
+                                    boxShadow: ['0 0 0 0 rgba(6, 182, 212, 0.7)', '0 0 0 6px rgba(6, 182, 212, 0)', '0 0 0 0 0 rgba(6, 182, 212, 0)']
+                                  }}
+                                  transition={{ duration: 2, repeat: Infinity }}
+                                />
                                 <span className="text-sm text-neon-cyan">Confirming transaction</span>
                               </motion.div>
 
                               <motion.div
-                                className="flex items-center gap-3 opacity-30"
-                                initial={{ opacity: 0.1 }}
-                                animate={{ opacity: 0.6 }}
-                                transition={{ delay: 2 }}
+                                className="flex items-center gap-3"
+                                initial={{ opacity: 0.1, x: -20 }}
+                                animate={{ opacity: 0.6, x: 0 }}
+                                transition={{ delay: 2, type: "spring", stiffness: 200 }}
                               >
-                                <div className="w-2 h-2 bg-neon-green/30 rounded-full"></div>
+                                <motion.div
+                                  className="w-2 h-2 bg-neon-green/30 rounded-full"
+                                  animate={{ opacity: [0.3, 0.8, 0.3] }}
+                                  transition={{ duration: 3, repeat: Infinity }}
+                                />
                                 <span className="text-sm text-neon-green/40">Preparing delivery</span>
                               </motion.div>
                             </div>
 
                             <motion.div
-                              className="mt-4 bg-black/20 rounded-full h-1 overflow-hidden"
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ delay: 0.5 }}
+                              className="mt-4 bg-black/20 rounded-full h-2 overflow-hidden"
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
                             >
                               <motion.div
-                                className="h-full bg-gradient-to-r from-neon-green to-neon-cyan"
+                                className="h-full bg-gradient-to-r from-neon-green via-neon-cyan to-neon-green"
                                 initial={{ width: "0%" }}
                                 animate={{ width: "100%" }}
                                 transition={{ duration: 2.5, ease: "easeInOut" }}
+                              />
+                              <motion.div
+                                className="h-full bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                initial={{ x: "-100%" }}
+                                animate={{ x: "100%" }}
+                                transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
                               />
                             </motion.div>
                           </div>
                         </div>
 
                         <div className="text-center">
-                          <div className="text-xs text-neon-green/40">
-                            Secure transaction processing • Estimated time: 3 seconds
-                          </div>
+                          <motion.div
+                            className="relative inline-flex items-center justify-center w-20 h-20 mb-4"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 200 }}
+                          >
+                            <motion.div
+                              className="absolute inset-0 border-4 border-neon-green/20 rounded-full"
+                              animate={{
+                                borderColor: ['rgb(34, 197, 94, 0.2)', 'rgb(6, 182, 212, 0.2)', 'rgb(34, 197, 94, 0.2)'],
+                                scale: [1, 1.1, 1]
+                              }}
+                              transition={{ duration: 2, repeat: Infinity }}
+                            />
+                            <motion.div
+                              className="absolute inset-2 border-2 border-neon-cyan/30 border-t-neon-cyan rounded-full"
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                            />
+                            <motion.div
+                              className="absolute inset-4 bg-neon-green/10 rounded-full flex items-center justify-center"
+                              animate={{ backgroundColor: ['rgb(34, 197, 94, 0.1)', 'rgb(6, 182, 212, 0.1)', 'rgb(34, 197, 94, 0.1)'] }}
+                              transition={{ duration: 2, repeat: Infinity }}
+                            >
+                              <div className="text-neon-cyan font-bold text-lg">⟳</div>
+                            </motion.div>
+                          </motion.div>
+
+                          <motion.h3
+                            className="text-lg font-bold text-white mb-2"
+                            animate={{ color: ['#ffffff', '#06b6d4', '#ffffff'] }}
+                            transition={{ duration: 3, repeat: Infinity }}
+                          >
+                            PAYMENT PROCESSING
+                          </motion.h3>
+                          <motion.div
+                            className="text-sm text-neon-green/60"
+                            animate={{ opacity: [0.6, 1, 0.6] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          >
+                            Monitoring blockchain network...
+                          </motion.div>
                         </div>
                       </motion.div>
                     )}

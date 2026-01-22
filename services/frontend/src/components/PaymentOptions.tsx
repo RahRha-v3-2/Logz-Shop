@@ -67,14 +67,23 @@ export function PaymentOptions({ selectedCurrency, onCurrencySelect }: PaymentOp
           {cryptoCurrencies.map((crypto, index) => (
             <motion.button
               key={crypto.symbol}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 20, rotateX: -15 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                rotateX: 0,
+                transition: { delay: index * 0.1, type: "spring", stiffness: 200 }
+              }}
               whileHover={{
                 scale: crypto.enabled ? 1.03 : 1,
-                borderColor: crypto.enabled ? 'rgb(6, 182, 212)' : undefined
+                rotateY: crypto.enabled ? 2 : 0,
+                borderColor: crypto.enabled ? 'rgb(6, 182, 212)' : undefined,
+                transition: { type: "spring", stiffness: 300 }
               }}
-              whileTap={{ scale: crypto.enabled ? 0.97 : 1 }}
+              whileTap={{
+                scale: crypto.enabled ? 0.97 : 1,
+                transition: { type: "spring", stiffness: 300 }
+              }}
               onClick={() => crypto.enabled && onCurrencySelect?.(crypto)}
               disabled={!crypto.enabled}
               className={`

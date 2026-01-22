@@ -30,21 +30,21 @@ export function LogzLogo({ className = "" }: LogzLogoProps) {
   }, []);
 
   return (
-    <div className={`font-mono text-neon-cyan ${className}`}>
+    <div className={`font-mono text-center ${className}`}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="flex items-center"
+        className="flex items-center justify-center"
       >
-        <span className="text-neon-green/60 mr-2">$</span>
-        <span className="text-white">
+        <span className="text-neon-green/60 mr-2 text-sm">$</span>
+        <span className="text-neon-cyan font-bold tracking-wider">
           {displayedText}
         </span>
         {showCursor && (
           <motion.span
             animate={{ opacity: [1, 0] }}
-            transition={{ duration: 0.5, repeat: Infinity }}
+            transition={{ duration: 0.6, repeat: Infinity }}
             className="text-neon-cyan ml-1"
           >
             █
@@ -54,8 +54,8 @@ export function LogzLogo({ className = "" }: LogzLogoProps) {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.5 }}
-        className="text-[8px] text-neon-green/40 tracking-[0.2em] uppercase mt-1"
+        transition={{ delay: 1.2, duration: 0.5 }}
+        className="text-[7px] text-neon-green/40 tracking-[0.3em] uppercase mt-2"
       >
         TERMINAL_MARKET
       </motion.div>
